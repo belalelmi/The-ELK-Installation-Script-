@@ -1,0 +1,46 @@
+#!/bin/bash
+
+echo -e "\e[1;32mUpdating packages...\e[0m"
+apt-get update -y > /dev/null 2>&1
+echo -e "\e[1;32mUpdate completed\e[0m"
+
+echo -e "\e[1;32mUpgrading packages...\e[0m"
+apt-get upgrade -y > /dev/null 2>&1
+echo -e "\e[1;32mUpgrade completed\e[0m"
+
+echo -e "\e[1;32mInstalling apt-transport-https, ca-certificates, and gnupg2...\e[0m"
+apt-get install apt-transport-https ca-certificates gnupg2 -y > /dev/null 2>&1
+
+echo -e "\e[1;32mAdding the Elasticsearch repository...\e[0m"
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add - > /dev/null 2>&1
+sh -c 'echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" > /etc/apt/sources.list.d/elastic-7.x.list'
+apt-get update -y > /dev/null 2>&1
+
+echo -e "\e[1;32mInstalling Elasticsearch...\e[0m"
+apt-get install elasticsearch -y > /dev/null 2>&1
+echo -e "\e[1;32mElasticsearch install completed\e[0m"
+
+echo -e "\e[1;32mStarting Elasticsearch service...\e[0m"
+systemctl start elasticsearch > /dev/null 2>&1
+systemctl enable elasticsearch > /dev/null 2>&1
+
+echo -e "\e[1;32mInstalling curl...\e[0m"
+sudo apt-get install curl > /dev/null 2>&1
+
+echo -e "\e[1;32mChecking Elasticsearch status...\e[0m"
+curl -X GET "localhost:9200" > /dev/null 2>&1
+
+echo -e "\e[1;32mInstalling Kibana...\e[0m"
+sudo apt install kibana -y > /dev/null 2>&1
+echo -e "\e[1;32mKibana install completed\e[0m"
+
+echo -e "\e[1;32mStarting Kibana service...\e[0m"
+sudo systemctl enable kibana > /dev/null 2>&1
+sudo systemctl start kibana > /dev/null 2>&1
+
+echo -e "\e[1;32mInstalling Logstash\e[0m"
+sudo apt-get install logstash -y > /dev/null 2>&1
+echo -e "\e[1;32mDone Installing Logstash\e[0m"
+echo -e "\e[1;32mStarting Logstash\e[0m"
+sudo systemctl enable logstash > /dev/null 2>&1
+sudo systemctl start logstash > /dev/null 2>&1
