@@ -1,6 +1,10 @@
-This is a script that will install ELK stack 7.x on your system.
+This script is a Bash script for installing Elasticsearch, Kibana, and Logstash on a Debian-based Linux system. It first updates and upgrades the system packages, installs necessary dependencies such as apt-transport-https, ca-certificates, and gnupg2, and adds the Elasticsearch repository to the sources list.
 
-Great for users who want to install quickly or for those who are new to ELK and want to get up and running with less confusion.  Searching on the web and even using the installation guides on [elastic's website](https://www.elastic.co) can be confusing.  ELKscript will cut out most of the installation frustration.
+After that, the script installs Elasticsearch, starts the Elasticsearch service, and checks the status of Elasticsearch using curl. Next, it installs Kibana, starts the Kibana service, and finally installs and starts Logstash.
+
+The script uses various commands such as apt-get, wget, systemctl, and curl to install and manage the services. It also uses color codes to make the output more readable and informative. Overall, the script automates the installation process for Elasticsearch, Kibana, and Logstash, saving you time and effort.
+
+Searching on the web and even using the installation guides on [elastic's website](https://www.elastic.co) can be confusing.  ELKscript will cut out most of the installation frustration.
 
 ## Prerequisites
 
