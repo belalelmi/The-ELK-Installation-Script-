@@ -58,6 +58,7 @@ echo -e "\e[1;32mStarting Logstash\e[0m"
 systemctl enable logstash > /dev/null 2>&1
 systemctl start logstash > /dev/null 2>&1
 
+echo ""
 echo "---------------------------------------------------------------"
 echo -e "\e[1;32mFinished ELKscript Installer\e[0m"
 echo -e "Happy logging :)"
