@@ -1,4 +1,13 @@
 #!/bin/bash
+echo "---------------------------------------------------------------" 
+echo " $(date)"
+echo -e "\e[1;32m Starting ELKscript Installer\e[0m"
+echo " ELK Stack for Debian-based Systems "
+echo " Elasticsearch - Logstash - Kibana "
+echo "---------------------------------------------------------------"
+echo " ELKscript Status "
+echo ""
+echo " System Update... "
 
 echo -e "\e[1;32mUpdating packages...\e[0m"
 apt-get update -y > /dev/null 2>&1
@@ -7,6 +16,10 @@ echo -e "\e[1;32mUpdate completed\e[0m"
 echo -e "\e[1;32mUpgrading packages...\e[0m"
 apt-get upgrade -y > /dev/null 2>&1
 echo -e "\e[1;32mUpgrade completed\e[0m"
+
+echo " System Update - Complete "
+echo -e "\e[1;32mInstall Java 8...\e[0m"
+apt-get -yq install openjdk-8-jdk wget > /dev/null
 
 echo -e "\e[1;32mInstalling apt-transport-https, ca-certificates, and gnupg2...\e[0m"
 apt-get install apt-transport-https ca-certificates gnupg2 -y > /dev/null 2>&1
@@ -25,22 +38,27 @@ systemctl start elasticsearch > /dev/null 2>&1
 systemctl enable elasticsearch > /dev/null 2>&1
 
 echo -e "\e[1;32mInstalling curl...\e[0m"
-sudo apt-get install curl > /dev/null 2>&1
+apt-get install curl > /dev/null 2>&1
 
 echo -e "\e[1;32mChecking Elasticsearch status...\e[0m"
 curl -X GET "localhost:9200" > /dev/null 2>&1
 
 echo -e "\e[1;32mInstalling Kibana...\e[0m"
-sudo apt install kibana -y > /dev/null 2>&1
+apt install kibana -y > /dev/null 2>&1
 echo -e "\e[1;32mKibana install completed\e[0m"
 
 echo -e "\e[1;32mStarting Kibana service...\e[0m"
-sudo systemctl enable kibana > /dev/null 2>&1
-sudo systemctl start kibana > /dev/null 2>&1
+systemctl enable kibana > /dev/null 2>&1
+systemctl start kibana > /dev/null 2>&1
 
 echo -e "\e[1;32mInstalling Logstash\e[0m"
-sudo apt-get install logstash -y > /dev/null 2>&1
+apt-get install logstash -y > /dev/null 2>&1
 echo -e "\e[1;32mDone Installing Logstash\e[0m"
 echo -e "\e[1;32mStarting Logstash\e[0m"
-sudo systemctl enable logstash > /dev/null 2>&1
-sudo systemctl start logstash > /dev/null 2>&1
+systemctl enable logstash > /dev/null 2>&1
+systemctl start logstash > /dev/null 2>&1
+
+echo "---------------------------------------------------------------"
+echo -e "\e[1;32mFinished ELKscript Installer\e[0m"
+echo -e "Happy logging :)"
+echo "---------------------------------------------------------------"
