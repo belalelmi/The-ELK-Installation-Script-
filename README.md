@@ -42,4 +42,4 @@ ELKscript will perform the following steps:
 4. Install Kibana 7.x
 5. Install Logstash 7.x
 6. Set Elasticsearch, Kibana, and Logstash to start on boot
-7. Start all three services service 
+7. Start all three services 
